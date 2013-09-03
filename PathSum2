@@ -10,9 +10,9 @@
 public class Solution {
     private ArrayList<ArrayList<Integer>> mList;
     public ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
-		// Start typing your Java solution below
+    	// Start typing your Java solution below
 		// DO NOT write main() function
-         mList = new ArrayList<ArrayList<Integer>>();
+        mList = new ArrayList<ArrayList<Integer>>();
 		Stack<Integer> stack = new Stack<Integer>();
 		pathSumCore(root, stack, 0, sum);
 		return mList;
@@ -22,28 +22,25 @@ public class Solution {
 			int sumCalc, int sum) {
 		if (root == null)
 			return;
-		if (root.left == null && root.right == null) {
-			sumCalc += root.val;
-			stack.push(root.val);
-			if (sum == sumCalc) {
-				ArrayList<Integer> tmparr = new ArrayList<Integer>();
-				for (int i = 0; i < stack.size(); i++) {
-					tmparr.add(stack.get(i));
-				}
-				mList.add(tmparr);
+        stack.push(root.val);
+        sumCalc += root.val;
+        
+        boolean isLeaf = (root.left == null && root.right == null);
+		if ( isLeaf && sumCalc == sum) {
+			ArrayList<Integer> tmparr = new ArrayList<Integer>();
+			for (int i = 0; i < stack.size(); i++) {
+				tmparr.add(stack.get(i));
 			}
-			stack.pop();
+			mList.add(tmparr);
 		}
 
 		if (root.left != null) {
-			stack.push(root.val);
-			pathSumCore(root.left, stack, sumCalc + root.val, sum);
-			stack.pop();
+			pathSumCore(root.left, stack, sumCalc, sum);
 		}
 		if (root.right != null) {
-			stack.push(root.val);
-			pathSumCore(root.right, stack, sumCalc + root.val, sum);
-			stack.pop();
+			pathSumCore(root.right, stack, sumCalc, sum);
 		}
+        
+        stack.pop();
 	}
 }
