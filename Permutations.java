@@ -30,7 +30,7 @@ public class Solution {
                 permuteCore(num,begin+1);
                 
                 if(i!=begin){
-                    tmp = num[i];
+                    int tmp = num[i];
                     num[i]=num[begin];
                     num[begin]=tmp;    
                 }
